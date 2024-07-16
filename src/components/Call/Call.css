@@ -1,0 +1,29 @@
+.call {
+    position: relative;
+    background-color: #7a6c84;
+    padding: 10px 25px;
+    border-radius: 10px;
+    color: white;
+    outline: 2px solid #7a6c84;
+    outline-offset: 4px;
+}
+
+.call-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.call-icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background-color: white;
+    padding: 15px 15px;
+    border-radius: 100px;
+    color: black;
+    font-size: 1.5rem;
+}
