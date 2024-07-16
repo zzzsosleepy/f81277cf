@@ -4,16 +4,25 @@ import ReactDOM from 'react-dom';
 import Header from './Header.jsx';
 
 // Components
+import CallPage from './components/Page/CallPage.jsx';
+import ArchivePage from './components/Page/ArchivePage.jsx';
 import CallList from './components/CallList/CallList.jsx';
 
 const App = () => {
+
+  const [currentPage, setCurrentPage] = useState('calls');
+
+  useEffect(() => {
+    console.log('Current page:', currentPage);
+  }
+    , [currentPage]);
 
   return (
     <div className='container'>
       <Header />
       <div className="container-view">
         {/* List of calls */}
-        <CallList />
+        {currentPage === 'calls' && <CallPage />}
       </div>
       {/* https://aircall-backend.onrender.com */}
       {/* 
