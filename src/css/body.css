@@ -6,6 +6,7 @@
   --clr-accent-secondary: #8b47af;
   --clr-text-light: #fff;
   --clr-text-dark: #000;
+  font-family: var(--font-main);
 }
 
 body {
