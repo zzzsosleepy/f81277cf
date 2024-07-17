@@ -80,6 +80,7 @@ const Call = ({ call, prevCall = null }) => {
                     </div>
                     <div className="number-info">
                         <div className="call-from">+{call.from}</div>
+                        <div className="call-to">+{call.to}</div>
                     </div>
                 </div>
                 <div className="call-time">
