@@ -1,5 +1,4 @@
 header {
-  /* height: 80px; */
   margin: 0 auto;
   padding: 15px 15px;
   text-align: center;
@@ -7,7 +6,6 @@ header {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /* background-color: blue; */
   border-bottom: 2px solid var(--clr-accent-secondary);
   box-shadow: 0 0 35px 0 var(--clr-accent-secondary);
 }
