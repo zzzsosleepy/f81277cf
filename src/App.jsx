@@ -1,60 +1,58 @@
+// Import necessary libraries and components
 import React, { useEffect, useState, useTransition } from 'react';
 import { createRoot } from 'react-dom/client';
 import Header from './Header.jsx';
 
-// Components
+// Import other components and icons
 import CallsPage from './components/Page/CallsPage.jsx';
 import ArchivePage from './components/Page/ArchivePage.jsx';
 import { CallsIcon, ArchiveIcon } from './components/Icons/Icons.jsx';
 
+// Main App Component
 const App = () => {
+  // useTransition hook for handling transitions, useful for state updates
   const [isPending, startTransition] = useTransition();
+  // State for tracking the current page ('unarchived' or 'archive')
   const [currentPage, setCurrentPage] = useState('unarchived');
 
+  // Function to handle page selection, wrapped in a transition for smoother updates
   const selectPage = (page) => {
     startTransition(() => {
-      setCurrentPage(page);
+      setCurrentPage(page); // Update the current page state
     });
-  }
+  };
 
   return (
-    <div className='container'>
+    <div className="container">
+      {/* Header component with a prop to handle page selection */}
       <Header selectPage={selectPage} />
+
       <div className="container-view">
-        {/* List of calls */}
-        {currentPage === 'unarchived' && <><h1 className="text-light"><CallsIcon />Calls</h1><CallsPage /></>}
-        {currentPage === 'archive' && <><h1 className="text-light"><ArchiveIcon />Archive</h1><ArchivePage /></>}
+        {/* Conditionally render the CallsPage component if currentPage is 'unarchived' */}
+        {currentPage === 'unarchived' && (
+          <>
+            <h1 className="text-light"><CallsIcon /> Calls</h1>
+            <CallsPage />
+          </>
+        )}
+        {/* Conditionally render the ArchivePage component if currentPage is 'archive' */}
+        {currentPage === 'archive' && (
+          <>
+            <h1 className="text-light"><ArchiveIcon /> Archive</h1>
+            <ArchivePage />
+          </>
+        )}
       </div>
-      {/* https://aircall-backend.onrender.com */}
-      {/* 
-    GET - BASE_URL/activities: get calls to display in the Activity Feed
-    GET - BASE_URL/activities/<call_id> retrieve a specific call details
-    PATCH - BASE_URL/activities/<call_id> update a call. The only field updatable is is_archived (bool). You'll need to send a JSON in the request body:
-
-{
-  is_archived: true
-}
-
-    PATCH - BASE_URL/reset: Reset all calls to initial state (usefull if you archived all calls).
-
-Call object
-
-    id - unique ID of call
-    created_at - creation date
-    direction - inbound or outbound call
-    from - caller's number
-    to - callee's number
-    via - Aircall number used for the call
-    duration - duration of a call (in seconds)
-    is_archived - call is archived or not
-    call_type - can be a missed, answered or voicemail call.
- */}
     </div>
   );
 };
 
+// Get the root container from the DOM
 const container = document.getElementById('app');
+// Create a root for React rendering
 const root = createRoot(container);
+// Render the App component into the root
 root.render(<App />);
 
+// Export the App component as the default export
 export default App;
