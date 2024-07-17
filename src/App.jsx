@@ -1,45 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-
+import React, { useEffect, useState, useTransition } from 'react';
+import { createRoot } from 'react-dom/client';
 import Header from './Header.jsx';
 
 // Components
-import InboxPage from './components/Page/InboxPage.jsx';
+import CallsPage from './components/Page/CallsPage.jsx';
 import ArchivePage from './components/Page/ArchivePage.jsx';
-import CallList from './components/CallList/CallList.jsx';
+import { CallsIcon, ArchiveIcon } from './components/Icons/Icons.jsx';
 
-// Libraries
-// React-slick
-
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 const App = () => {
+  const [isPending, startTransition] = useTransition();
+  const [currentPage, setCurrentPage] = useState('unarchived');
 
-  const [currentPage, setCurrentPage] = useState('calls');
-
-  useEffect(() => {
-    console.log('Current page:', currentPage);
-  }, [currentPage]);
-
-  const sliderSettings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    adaptiveHeight: true,
+  const selectPage = (page) => {
+    startTransition(() => {
+      setCurrentPage(page);
+    });
   }
 
   return (
     <div className='container'>
-      <Header />
+      <Header selectPage={selectPage} />
       <div className="container-view">
         {/* List of calls */}
-        <Slider className="page-slider" {...sliderSettings}>
-          {currentPage === 'calls' && <InboxPage />}
-          {currentPage === 'calls' && <ArchivePage />}
-        </Slider>
+        {currentPage === 'unarchived' && <><h1 className="text-light"><CallsIcon />Calls</h1><CallsPage /></>}
+        {currentPage === 'archive' && <><h1 className="text-light"><ArchiveIcon />Archive</h1><ArchivePage /></>}
       </div>
       {/* https://aircall-backend.onrender.com */}
       {/* 
@@ -69,6 +53,8 @@ Call object
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const container = document.getElementById('app');
+const root = createRoot(container);
+root.render(<App />);
 
 export default App;

@@ -1,6 +1,11 @@
 * {
   --font-main: 'Rubik', sans-serif;
   box-sizing: border-box;
+  /* Colors */
+  --clr-accent-main: #3696da;
+  --clr-accent-secondary: #8b47af;
+  --clr-text-light: #fff;
+  --clr-text-dark: #000;
 }
 
 /* html,

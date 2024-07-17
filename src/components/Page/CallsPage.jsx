@@ -1,12 +1,12 @@
 import React from 'react'
 import CallList from '../CallList/CallList.jsx'
 
-const ArchivePage = () => {
+const CallsPage = () => {
     return (
         <>
-            <CallList filter="archived" />
+            <CallList filter={'unarchived'} />
         </>
     )
 }
 
-export default ArchivePage
+export default CallsPage

@@ -1,0 +1,24 @@
+.button-main {
+    background-color: var(--clr-accent-main);
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 5px;
+    cursor: pointer;
+    max-width: 200px;
+    text-align: center;
+    transition: background-color 0.2s ease;
+}
+
+.button-main svg {
+    font-size: 2rem;
+}
+
+.button-main:hover {
+    background-color: var(--clr-accent-secondary);
+}
