@@ -14,7 +14,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.(js|jsx)$/,
@@ -22,7 +22,38 @@ module.exports = {
         use: {
           loader: 'babel-loader'
         }
-      }
+      },
+      {
+        test: /\.(eot|ttf|woff|woff2)$/, // Removed svg from here
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images/',
+            },
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true,
+              disable: true,
+            },
+          },
+        ],
+      },
     ]
   },
   plugins: [

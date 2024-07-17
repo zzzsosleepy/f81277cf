@@ -1,15 +1,30 @@
-html, body, h1, h2, h3, ul, li {
+* {
+  --font-main: 'Rubik', sans-serif;
+  box-sizing: border-box;
+  /* Colors */
+  --clr-accent-main: #3696da;
+  --clr-accent-secondary: #8b47af;
+  --clr-text-light: #fff;
+  --clr-text-dark: #000;
+}
+
+/* html,
+body,
+h1,
+h2,
+h3,
+ul,
+li {
   margin: 0;
   padding: 0;
   border: 0;
   font: inherit;
   font-size: 100%;
-}
+} */
 
 body {
   background: #233142;
-  font-family: helvetica, arial, sans-serif;
-  font-size: 13px;
+  font-family: var(--font-main);
   color: #333333;
   line-height: 1;
 }
