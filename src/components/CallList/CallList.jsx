@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react'
 import './CallList.css';
 import Call from '../Call/Call.jsx';
 
-const CallList = () => {
+// Options for filtering the call list
+const FILTER_OPTIONS = {
+    ALL: 'all',
+    INCOMING: 'incoming',
+};
+
+const CallList = ({ filter = 'all' }) => {
     const [calls, setCalls] = useState([]);
 
     const callList = [
@@ -202,10 +208,18 @@ const CallList = () => {
         setCalls(callList);
     }, []);
 
+    // Filter calls based on the selected filter option
+    const filteredCalls = calls.filter(call => {
+        if (filter === FILTER_OPTIONS.INCOMING) {
+            return call.direction === 'inbound';
+        }
+        return true; // For 'all' or any other filter, return all calls
+    });
+
     return (
         <div className="call-list">
             <h1>Call List</h1>
-            {calls.map((call, index) => {
+            {filteredCalls.map((call, index) => {
                 return (
                     <Call call={call} key={index} />
                 )

@@ -4,25 +4,42 @@ import ReactDOM from 'react-dom';
 import Header from './Header.jsx';
 
 // Components
-import CallPage from './components/Page/CallPage.jsx';
+import InboxPage from './components/Page/InboxPage.jsx';
 import ArchivePage from './components/Page/ArchivePage.jsx';
 import CallList from './components/CallList/CallList.jsx';
 
+// Libraries
+// React-slick
+
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 const App = () => {
 
   const [currentPage, setCurrentPage] = useState('calls');
 
   useEffect(() => {
     console.log('Current page:', currentPage);
+  }, [currentPage]);
+
+  const sliderSettings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    adaptiveHeight: true,
   }
-    , [currentPage]);
 
   return (
     <div className='container'>
       <Header />
       <div className="container-view">
         {/* List of calls */}
-        {currentPage === 'calls' && <CallPage />}
+        <Slider className="page-slider" {...sliderSettings}>
+          {currentPage === 'calls' && <InboxPage />}
+          {currentPage === 'calls' && <ArchivePage />}
+        </Slider>
       </div>
       {/* https://aircall-backend.onrender.com */}
       {/* 

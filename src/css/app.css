@@ -22,4 +22,11 @@
 
 #app .container-view {
   padding: 20px;
+  /* overflow-y: scroll; */
+  transition: all 0.2s ease;
+}
+
+.page-slider {
+  height: auto;
+  transition: all 0.2s ease;
 }
