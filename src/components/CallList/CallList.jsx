@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import './CallList.css';
 import Call from '../Call/Call.jsx';
+import { CalendarIcon, ArchiveIcon } from '../Icons/Icons.jsx';
+import Button from '../Button/Button.jsx';
 
-const CallList = () => {
+// Options for filtering the call list
+const FILTER_OPTIONS = {
+    UNARCHIVED: 'unarchived',
+    ARCHIVED: 'archived',
+};
+
+const CallList = ({ filter = 'unarchived' }) => {
     const [calls, setCalls] = useState([]);
 
     const callList = [
@@ -195,19 +203,102 @@ const CallList = () => {
         }
     ];
 
+    const displayedDates = new Set();
+
     useEffect(() => {
-        // fetch('https://aircall-backend.onrender.com/activities')
-        //   .then((response) => response.json())
-        //   .then((data) => setCalls(data))
-        setCalls(callList);
+        fetch('https://aircall-backend.onrender.com/activities')
+            .then((response) => response.json())
+            .then((data) => setCalls(data))
+        // setCalls(callList);
     }, []);
 
+    // Filter calls based on the selected filter option
+    const filteredCalls = calls.filter(call => {
+        if (filter === FILTER_OPTIONS.ARCHIVED) {
+            return call.is_archived === true;
+        }
+        return call.is_archived === false;
+    });
+
+    const archiveAllCalls = () => {
+        const updatedCalls = calls.map(call => ({ ...call, is_archived: true }));
+        setCalls(updatedCalls);
+
+        updatedCalls.forEach(call => {
+            fetch(`https://aircall-backend.herokuapp.com/activities/${call.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ is_archived: true })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+    };
+
+    const resetCalls = () => {
+        const updatedCalls = calls.map(call => ({ ...call, is_archived: false }));
+        setCalls(updatedCalls);
+        fetch(`https://aircall-backend.herokuapp.com/reset`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    };
+
+    const unarchiveAllCalls = () => {
+        const updatedCalls = calls.map(call => ({ ...call, is_archived: false }));
+        setCalls(updatedCalls);
+
+        updatedCalls.forEach(call => {
+            fetch(`https://aircall-backend.herokuapp.com/activities/${call.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ is_archived: false })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+    };
     return (
         <div className="call-list">
-            <h1>Call List</h1>
-            {calls.map((call, index) => {
+            {filter === 'unarchived' && <Button className="archive-all-button" onClick={() => archiveAllCalls()}><ArchiveIcon />Archive all calls</Button>}
+            {filter === 'archived' && <Button className="archive-all-button" onClick={() => unarchiveAllCalls()}><ArchiveIcon />Unarchive all calls</Button>}
+            {filteredCalls.map((call, index) => {
+                // Convert the call.created_at to be formatted as: Month Day, Year
+                const date = new Date(call.created_at);
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = date.toLocaleDateString('en-US', options);
+                const showDate = !displayedDates.has(formattedDate);
+                if (showDate) {
+                    displayedDates.add(formattedDate);
+                }
                 return (
-                    <Call call={call} key={index} />
+                    <div key={index}>
+                        {showDate && <><h4><CalendarIcon color="white" />{formattedDate}</h4><hr /></>}
+                        <Call call={call} />
+                    </div>
                 )
             })}
         </div>

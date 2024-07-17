@@ -9,17 +9,32 @@
   bottom: 0;
 }
 
+.text-light {
+  color: var(--clr-text-light);
+}
+
 #app .container {
   width: 376px;
   height: 666px;
   z-index: 100;
 
-  background: white;
+  background: #252525;
   border-radius: 3px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, .9);
   overflow-y: scroll;
 }
 
 #app .container-view {
-  padding: 20px;
+  padding: 5px;
+  transition: all 0.2s ease;
+}
+
+#app .container-view h1 {
+  margin-left: 8px;
+  background: linear-gradient(120deg, #8787876f 0%, #87878700 65%);
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }

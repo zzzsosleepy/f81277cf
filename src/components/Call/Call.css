@@ -1,10 +1,9 @@
 .call {
     position: relative;
-    background-color: #7a6c84;
-    padding: 10px 25px;
+    background: linear-gradient(120deg, var(--clr-accent-main), var(--clr-accent-secondary));
     border-radius: 10px;
-    color: white;
-    outline: 2px solid #7a6c84;
+    color: var(--clr-text-light);
+    outline: 2px solid var(--clr-accent-main);
     outline-offset: 4px;
 }
 
@@ -15,15 +14,102 @@
     align-items: center;
 }
 
-.call-icon {
+.call-type-icon {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 5px;
-    background-color: white;
-    padding: 15px 15px;
+    outline-offset: 4px;
+    padding: 15px 5px 15px 15px;
     border-radius: 100px;
     color: black;
     font-size: 1.5rem;
+}
+
+.call-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    padding: 35px 0 15px 0;
+    transition: height 0.2s ease;
+}
+
+.call-info-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.call-from {
+    font-weight: 400;
+    background: linear-gradient(120deg, #ffffff50 0%, #ffffff00 65%);
+    padding: 5px 10px;
+    border-radius: 5px;
+    min-width: 100px;
+}
+
+.call-to {
+    font-weight: 400;
+    /* background: linear-gradient(120deg, #ffffff50 0%, #ffffff00 65%); */
+    padding: 5px 10px;
+    border-radius: 5px;
+    min-width: 100px;
+    opacity: 0.5;
+
+}
+
+.number-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.call-time {
+    position: absolute;
+    top: 0;
+    right: 50%;
+    transform: translateX(50%);
+    padding: 4px 8px;
+    border-radius: 0px 0px 10px 10px;
+    background-color: #ffffff3a;
+    color: white;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.call-time svg {
+    font-size: 1.2rem;
+}
+
+.call-duration {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+.call-duration svg {
+    font-size: 1.5rem;
+}
+
+.archive-button {
+    margin-right: 10px;
+    color: white;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
 }
